@@ -449,7 +449,7 @@
 
           app.loadAppScript(file, { context: context, appContext: tmpContext });
 
-          app._exports[i] = result;
+          app._exports[i] = context.exports;
         }
       }
     }
