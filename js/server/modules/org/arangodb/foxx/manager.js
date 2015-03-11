@@ -326,6 +326,13 @@
       delete manifest.teardown;
     }
 
+    // if (manifest.assets) {
+    //   console.warn(
+    //     "Manifest '%s' contains deprecated attribute 'assets', use 'files' and an external build tool instead.",
+    //     filename
+    //   );
+    // }
+
     Object.keys(manifest).forEach(function (key) {
       if (!manifestSchema[key]) {
         console.warn(
