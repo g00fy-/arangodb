@@ -19,7 +19,7 @@ attributes are required though):
 * *license*: Short form of the license (MIT, GPL...)
 * *name*: Name of the application (Meta information)
 * *repository*: An object with information about where you can find the repository: *type* and *url*
-* *setup*: Path to a setup script
+* *scripts*: An object with script names mapped to filenames, e.g. your app's *setup* and *teardown* scripts
 * *teardown*: Path to a teardown script
 * *thumbnail*: Path to a thumbnail that represents the application (Meta information)
 * *version*: Current version of the application (Meta information)
@@ -58,8 +58,10 @@ A more complete example for a Manifest file:
     }
   },
 
-  "setup": "scripts/setup.js",
-  "teardown": "scripts/teardown.js"
+  "scripts": {
+    "setup": "scripts/setup.js",
+    "teardown": "scripts/teardown.js"
+  }
 }
 ```
 
@@ -75,7 +77,7 @@ Note: the setup script is called on each request in the development mode.
 If your application needs to set up specific collections, you should always 
 check in the setup script whether they are already there.
 
-The teardown script is called when an application is uninstalled. It is good
+The *teardown* script is called when an application is uninstalled. It is good
 practice to drop any collections in the teardown script that the application used 
 exclusively, but this is not enforced. Maybe there are reasons to keep application
 data even after removing an application. It's up to you to decide what to do.
@@ -88,6 +90,27 @@ data even after removing an application. It's up to you to decide what to do.
   *FoxxController* you want to mount
 
 You can add multiple controllers in one manifest this way.
+
+If *controllers* is set to a string instead, it will be treated as the *value*
+with the *key* being implicitly set to `"/"` (i.e. the root of your app's mount point).
+
+In other words, the following:
+
+```json
+{
+  "controllers": "my-controllers.js"
+}
+```
+
+is equivalent to this:
+
+```js
+{
+  "controllers": {
+    "/": "my-controllers.js"
+  }
+}
+```
 
 !SUBSECTION The files
 
